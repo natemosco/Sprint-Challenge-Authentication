@@ -13,5 +13,13 @@ describe("users-model", function() {
       const userCount = await db("users");
       expect(userCount).toHaveLength(1);
     });
+
+    it("should have an id", async function() {
+      await Users.add({ username: "frodo", password: "ring" });
+
+      const users = await db("users");
+      expect(users[0].id).toBeDefined();
+      expect(users[0].id).toBe(1);
+    });
   });
 });
