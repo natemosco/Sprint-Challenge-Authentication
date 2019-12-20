@@ -45,4 +45,24 @@ describe("users-model", function() {
       });
     });
   });
+
+  describe("findById()", function() {
+    beforeEach(async () => {
+      await db("users").truncate();
+    });
+
+    it("should return the correct user to match the id given", async function() {
+      await Users.add(person[0]);
+      await Users.add(person[1]);
+      await Users.add(person[2]);
+      await Users.add(person[3]);
+
+      await Users.findById(1).then(res => {
+        expect(res.username).toBe("sam");
+      });
+      await Users.findById(3).then(res => {
+        expect(res.username).toBe("sam2");
+      });
+    });
+  });
 });
